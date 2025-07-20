@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->decimal('price', 8, 2);
-            $table->integer('quantity');
+            $table->integer('quantity')->default(0);
             $table->string('image_path')->nullable();
             $table->unsignedBigInteger('category_id');
             $table->timestamps();

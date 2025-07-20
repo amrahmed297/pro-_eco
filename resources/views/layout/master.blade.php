@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+	<meta name="description"
+		content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
 
 	<title>متجر الكتروني</title>
 
@@ -25,7 +27,7 @@
 </head>
 
 <body>
-	
+
 	<!--PreLoader-->
 	<div class="loader">
 		<div class="loader-inner">
@@ -33,7 +35,7 @@
 		</div>
 	</div>
 	<!--PreLoader Ends-->
-	
+
 	<!-- header -->
 	<div class="top-header-area" id="sticker">
 		<div class="container">
@@ -49,23 +51,43 @@
 						<!-- menu start -->
 						<nav class="main-menu">
 							<ul>
+
+								@if(session('is_admin_logged_in'))
+									<li class="current-list-item">
+										<a href="#">لوحه التحكم</a>
+										<ul class="sub-menu">
+											<li><a href="{{ route('all.view') }}">كل المنتجات</a></li>
+										</ul>
+									</li>
+
+									<li>
+										<form action="{{ route('admin.logout') }}" method="POST">
+											@csrf
+											<button type="submit" class="btn btn-link text-danger">تسجيل خروج
+												(أدمن)</button>
+										</form>
+									</li>
+								@else
+									<li><a href="{{ route('admin.login') }}">👤 دخول الأدمن</a></li>
+								@endif
+
 								<li class="current-list-item"><a href="/">الرئيسية</a>
 									<ul class="sub-menu">
 										<li><a href="/cat">الاقسام</a></li>
 										<li><a href="/products">صفحة المنتجات</a></li>
 									</ul>
 								</li>
-								<li><a href="#">معلومات عنا</a></li>
+								<li><a href="https://amrahmed297.github.io/protof/">معلومات عنا</a></li>
 								<li><a href="#">صفحات</a>
 									<ul class="sub-menu">
 										<li><a href="#">404 page</a></li>
-										<li><a href="#">About</a></li>
+										<li><a href="https://amrahmed297.github.io/protof/">About</a></li>
 										<li><a href="#">السلة</a></li>
 										<li><a href="#">السحب</a></li>
 										<li><a href="#">التواصل</a></li>
 									</ul>
 								</li>
-								<li><a href="#">تواصل معنا</a></li>
+								<li><a href="https://amrahmed297.github.io/protof/">تواصل معنا</a></li>
 								<li><a href="#">المتجر</a>
 									<ul class="sub-menu">
 										<li><a href="#">تسوق</a></li>
@@ -74,12 +96,40 @@
 										<li><a href="#">عربة التسوق</a></li>
 									</ul>
 								</li>
+
+								<li class="current-list-item"><a href="#">الحساب</a>
+									<ul class="sub-menu">
+										@guest
+											<li><a href="{{ route('login') }}">تسجيل الدخول</a></li>
+											<li><a href="{{ route('register') }}">إنشاء حساب</a></li>
+										@endguest
+
+										@auth
+											<li>
+												<form action="{{ route('auth.logout') }}" method="POST"
+													style="display: inline;">
+													@csrf
+													<button type="submit"
+														style="background: none; border: none; padding: 0; margin: 0; color: #000;">
+														تسجيل الخروج
+													</button>
+												</form>
+											</li>
+										@endauth
+									</ul>
+								</li>
+
 								<li>
 									<div class="header-icons">
-										<a class="shopping-cart" href="#"><i class="fas fa-shopping-cart"></i></a>
-										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+										<a class="shopping-cart" href="{{ route('cart.index') }}">
+											<i class="fas fa-shopping-cart"></i>
+										</a>
+										<a class="mobile-hide search-bar-icon" href="#">
+											<i class="fas fa-search"></i>
+										</a>
 									</div>
 								</li>
+
 							</ul>
 						</nav>
 						<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
@@ -232,8 +282,10 @@
 				<div class="col-lg-6 text-right col-md-12">
 					<div class="social-icons">
 						<ul>
-							<li><a href="https://www.facebook.com/amr.ahmed.584435/" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-							<li><a href="https://www.linkedin.com/in/amr-ahmed-89697b335" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+							<li><a href="https://www.facebook.com/amr.ahmed.584435/" target="_blank"><i
+										class="fab fa-facebook-f"></i></a></li>
+							<li><a href="https://www.linkedin.com/in/amr-ahmed-89697b335" target="_blank"><i
+										class="fab fa-linkedin"></i></a></li>
 						</ul>
 					</div>
 				</div>
@@ -254,4 +306,5 @@
 	<script src="{{ asset('assets/js/main.js') }}"></script>
 
 </body>
+
 </html>
